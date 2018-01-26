@@ -12,7 +12,29 @@ public class CitizenAgent : DualBehaviour
 {
     #region Public Members
 
-    public List<Transform> m_pointsOfInterest;
+    #region Config (Required to work)
+
+    public float m_interactableBubbleSize = 5;
+    public List<Transform> m_pointsOfInterest = new List<Transform>();
+
+    #endregion
+
+    #region Controls
+
+    public E_States m_state = E_States.STROLLING;
+
+    #endregion
+
+    #region Utils (what need to be public but is neither config or control)
+    public enum E_States
+    {
+        INVALID = -1,
+
+        STROLLING = 1,
+        INTERACTING = 2,
+        DEAD = 4,
+    }
+    #endregion
 
     #endregion
 
@@ -34,7 +56,7 @@ public class CitizenAgent : DualBehaviour
 
     private void Update()
     {
-        StateMachine();
+        ExternallyControlledStateMachine();
     }
 
     #endregion
@@ -47,7 +69,7 @@ public class CitizenAgent : DualBehaviour
             Debug.LogWarning("CitizenAgent: I don't know where to go! (No points of interests set)", this.gameObject);
     }
 
-    private void StateMachine()
+    private void ExternallyControlledStateMachine()
     {
         switch (m_state)
         {
@@ -58,6 +80,7 @@ public class CitizenAgent : DualBehaviour
                 break;
             case E_States.STROLLING:
                 // Dev note: Would be nice if this could be in some sort of Init separate state
+                // instead of running this every frame?
                 if (m_nextDestination == null)
                     m_nextDestination = PickNextDestination();
 
@@ -126,27 +149,23 @@ public class CitizenAgent : DualBehaviour
 
     #region Private and Protected Members
 
+    #region Serialized
+
+    #endregion
+
+    #region "Others"
+
     /// <summary>
     /// [TODO] Make seedable easily (idea: through ScriptableObject)
     /// </summary>
     static Random rnd = new Random();
 
-    private NavMeshAgent m_navMeshAgent;
+    #endregion
 
-    [SerializeField]
-    private enum E_States
-    {
-        INVALID = -1,
-
-        STROLLING = 1,
-        INTERACTING = 2,
-        DEAD = 4,
-    }
-
-    [SerializeField]
-    private E_States m_state = E_States.STROLLING;
-
+    #region Dynamic
     private Transform m_nextDestination;
+    private NavMeshAgent m_navMeshAgent;
+    #endregion
 
     #endregion
 }
