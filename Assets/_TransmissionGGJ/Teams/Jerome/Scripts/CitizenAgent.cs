@@ -101,10 +101,10 @@ public class CitizenAgent : DualBehaviour
             {
                 return true;
 
-                if (!m_navMeshAgent.hasPath || m_navMeshAgent.velocity.sqrMagnitude == 0f)
-                {
-                    return true;
-                }
+                //if (!m_navMeshAgent.hasPath || m_navMeshAgent.velocity.sqrMagnitude == 0f)
+                //{
+                //    return true;
+                //}
             }
         }
 
