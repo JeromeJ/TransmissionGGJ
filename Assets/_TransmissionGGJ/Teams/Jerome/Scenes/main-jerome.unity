@@ -744,12 +744,12 @@ Prefab:
     - target: {fileID: 195238523138084928, guid: 28cc1aeaa36990346826d4ff4f3a4528,
         type: 2}
       propertyPath: m_AutoBraking
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 195238523138084928, guid: 28cc1aeaa36990346826d4ff4f3a4528,
         type: 2}
       propertyPath: m_StoppingDistance
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 28cc1aeaa36990346826d4ff4f3a4528, type: 2}
@@ -858,11 +858,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 991737917}
     m_Modifications:
-    - target: {fileID: 114572767620198540, guid: 28cc1aeaa36990346826d4ff4f3a4528,
-        type: 2}
-      propertyPath: m_pointsOfInterest.Array.size
-      value: 13
-      objectReference: {fileID: 0}
     - target: {fileID: 4807318923855628, guid: 28cc1aeaa36990346826d4ff4f3a4528, type: 2}
       propertyPath: m_LocalPosition.x
       value: -0.8139753
@@ -963,11 +958,6 @@ Prefab:
     - target: {fileID: 195238523138084928, guid: 28cc1aeaa36990346826d4ff4f3a4528,
         type: 2}
       propertyPath: m_AutoBraking
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 195238523138084928, guid: 28cc1aeaa36990346826d4ff4f3a4528,
-        type: 2}
-      propertyPath: m_StoppingDistance
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1601,12 +1591,12 @@ Prefab:
     - target: {fileID: 195238523138084928, guid: 28cc1aeaa36990346826d4ff4f3a4528,
         type: 2}
       propertyPath: m_AutoBraking
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 195238523138084928, guid: 28cc1aeaa36990346826d4ff4f3a4528,
         type: 2}
       propertyPath: m_StoppingDistance
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 28cc1aeaa36990346826d4ff4f3a4528, type: 2}
