@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : DualBehaviour
+public class CitizenAgent : DualBehaviour
 {
     #region Public Members
 
