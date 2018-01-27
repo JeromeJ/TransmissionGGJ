@@ -51,18 +51,13 @@ public class CheckEndGame : MonoBehaviour {
         bool _isEnd = false;
         while (!_isEnd)
         {
-            yield return new WaitForSeconds(2);
-            Debug.Log("check");
+            yield return new WaitForSeconds(1);
             _isEnd = TestEnding();
         }
         Debug.Log("End Game");
         DisplayCasualties();
     }
 
-
     private GameObject[] m_citizenList;
     List<TransmissionManager> m_transmissionStatusList = new List<TransmissionManager>();
-
-    private bool m_isEnd = false;
-
 }
