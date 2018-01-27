@@ -189,7 +189,7 @@ public class OptionsMenu : MonoBehaviour
             texturelowtext.GetComponent<Text>().text = "LOW";
             texturemedtext.GetComponent<Text>().text = "med";
             texturehightext.GetComponent<Text>().text = "high";
-            texturelowtextLINE.gameObject.active = true;
+            texturelowtextLINE.SetActive (true);
             texturemedtextLINE.SetActive(false);
             texturehightextLINE.SetActive(false);
         }

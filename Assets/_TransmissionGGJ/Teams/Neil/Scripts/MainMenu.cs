@@ -2,187 +2,205 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameObject PanelControls;
-    public GameObject PanelVideo;
-    public GameObject PanelGame;
-    public GameObject PanelKeyBindings;
-    public GameObject PanelMovement;
-    public GameObject PanelCombat;
-    public GameObject PanelGeneral;
+    public GameObject _panelControls;
+    public GameObject _panelVideo;
+    public GameObject _panelGame;
+    public GameObject _panelKeyBindings;
+    public GameObject _panelMovement;
+    public GameObject _panelCombat;
+    public GameObject _panelGeneral;
    // public GameObject hoverSound;
-    public AudioSource hoverSound;
-    public AudioSource sfxhoversound;
-    public AudioSource clickSound;
+    public AudioSource _hoverSound;
+    public AudioSource _sfxhoversound;
+    public AudioSource _clickSound;
 
-    public GameObject areYouSure;
-    public Animator CameraObject;
+    public GameObject _areYouSure;
+    public Animator _cameraObject;
 
-    public GameObject continueBtn;
-    public GameObject newGameBtn;
-    public GameObject loadGameBtn;
+    public GameObject _continueBtn;
+    public GameObject _newGameBtn;
+    public GameObject _loadGameBtn;
 
-    public GameObject lineGame;
-    public GameObject lineVideo;
-    public GameObject lineControls;
-    public GameObject lineKeyBindings;
-    public GameObject lineMovement;
-    public GameObject lineCombat;
-    public GameObject lineGeneral;
+    public GameObject _lineGame;
+    public GameObject _lineVideo;
+    public GameObject _lineControls;
+    public GameObject _lineKeyBindings;
+    public GameObject _lineMovement;
+    public GameObject _lineCombat;
+    public GameObject _lineGeneral;
+
+    public GameObject _animationCredit;
 
     public void PlayCampaign()
     {
-        areYouSure.SetActive(false);
-        continueBtn.SetActive(true);
-        newGameBtn.SetActive(true);
-        loadGameBtn.SetActive(true);
+        _areYouSure.SetActive(false);
+      //  continueBtn.SetActive(true);
+        _newGameBtn.SetActive(true);
+       // loadGameBtn.SetActive(true);
+    }
+
+    public void NewGame()
+    {
+        SceneManager.LoadSceneAsync("PlayScene");
     }
 
     public void DisablePlayCampaign()
     {
-        continueBtn.SetActive(false);
-        newGameBtn.SetActive(false);
-        loadGameBtn.SetActive(false);
+        _continueBtn.SetActive(false);
+        _newGameBtn.SetActive(false);
+        _loadGameBtn.SetActive(false);
     }
 
     public void Position1()
     {
-        CameraObject.SetFloat("Animate", 0);
+        _cameraObject.SetFloat("Animate", 0);
     }
 
     public void Position2()
     {
         DisablePlayCampaign();
-        CameraObject.SetFloat("Animate", 1);
+        _cameraObject.SetFloat("Animate", 1);
     }
 
     public void Position3()
     {
         DisablePlayCampaign();
-        CameraObject.SetFloat("Animate2", 1);
+        _cameraObject.SetFloat("Animate2", 1);
     }
 
     public void Position4()
     {
         
-        CameraObject.SetFloat("Animate2", 0);
+        _cameraObject.SetFloat("Animate2", 0);
     }
 
     public void GamePanel()
     {
-        PanelControls.SetActive(false);
-        PanelVideo.SetActive(false);
-        PanelGame.SetActive(true);
-        PanelKeyBindings.SetActive(false);
+        _panelControls.SetActive(false);
+        _panelVideo.SetActive(false);
+        _panelGame.SetActive(true);
+        _panelKeyBindings.SetActive(false);
 
-        lineGame.SetActive(true);
-        lineControls.SetActive(false);
-        lineVideo.SetActive(false);
-        lineKeyBindings.SetActive(false);
+        _lineGame.SetActive(true);
+        _lineControls.SetActive(false);
+        _lineVideo.SetActive(false);
+        _lineKeyBindings.SetActive(false);
     }
 
     public void VideoPanel()
     {
-        PanelControls.SetActive(false);
-        PanelVideo.SetActive(true);
-        PanelGame.SetActive(false);
-        PanelKeyBindings.SetActive(false);
+        _panelControls.SetActive(false);
+        _panelVideo.SetActive(true);
+        _panelGame.SetActive(false);
+        _panelKeyBindings.SetActive(false);
 
-        lineGame.SetActive(false);
-        lineControls.SetActive(false);
-        lineVideo.SetActive(true);
-        lineKeyBindings.SetActive(false);
+        _lineGame.SetActive(false);
+        _lineControls.SetActive(false);
+        _lineVideo.SetActive(true);
+        _lineKeyBindings.SetActive(false);
     }
 
     public void ControlsPanel()
     {
-        PanelControls.SetActive(true);
-        PanelVideo.SetActive(false);
-        PanelGame.SetActive(false);
-        PanelKeyBindings.SetActive(false);
+        _panelControls.SetActive(true);
+        _panelVideo.SetActive(false);
+        _panelGame.SetActive(false);
+        _panelKeyBindings.SetActive(false);
 
-        lineGame.SetActive(false);
-        lineControls.SetActive(true);
-        lineVideo.SetActive(false);
-        lineKeyBindings.SetActive(false);
+        _lineGame.SetActive(false);
+        _lineControls.SetActive(true);
+        _lineVideo.SetActive(false);
+        _lineKeyBindings.SetActive(false);
     }
 
     public void KeyBindingsPanel()
     {
-        PanelControls.SetActive(false);
-        PanelVideo.SetActive(false);
-        PanelGame.SetActive(false);
-        PanelKeyBindings.SetActive(true);
+        _panelControls.SetActive(false);
+        _panelVideo.SetActive(false);
+        _panelGame.SetActive(false);
+        _panelKeyBindings.SetActive(true);
 
-        lineGame.SetActive(false);
-        lineControls.SetActive(false);
-        lineVideo.SetActive(true);
-        lineKeyBindings.SetActive(true);
+        _lineGame.SetActive(false);
+        _lineControls.SetActive(false);
+        _lineVideo.SetActive(true);
+        _lineKeyBindings.SetActive(true);
     }
 
     public void MovementPanel()
     {
-        PanelMovement.SetActive(true);
-        PanelCombat.SetActive(false);
-        PanelGeneral.SetActive(false);
+        _panelMovement.SetActive(true);
+        _panelCombat.SetActive(false);
+        _panelGeneral.SetActive(false);
 
-        lineMovement.SetActive(true);
-        lineCombat.SetActive(false);
-        lineGeneral.SetActive(false);
+        _lineMovement.SetActive(true);
+        _lineCombat.SetActive(false);
+        _lineGeneral.SetActive(false);
     }
 
      public void CombatPanel()
      {
-        PanelMovement.SetActive(false);
-        PanelCombat.SetActive(true);
-        PanelGeneral.SetActive(false);
+        _panelMovement.SetActive(false);
+        _panelCombat.SetActive(true);
+        _panelGeneral.SetActive(false);
 
-        lineMovement.SetActive(false);
-        lineCombat.SetActive(true);
-        lineGeneral.SetActive(false);
+        _lineMovement.SetActive(false);
+        _lineCombat.SetActive(true);
+        _lineGeneral.SetActive(false);
     }
 
     public void GeneralPanel()
     {
-        PanelMovement.SetActive(false);
-        PanelCombat.SetActive(false);
-        PanelGeneral.SetActive(true);
+        _panelMovement.SetActive(false);
+        _panelCombat.SetActive(false);
+        _panelGeneral.SetActive(true);
 
-        lineMovement.SetActive(false);
-        lineCombat.SetActive(false);
-        lineGeneral.SetActive(true);
+        _lineMovement.SetActive(false);
+        _lineCombat.SetActive(false);
+        _lineGeneral.SetActive(true);
     }
 
     public void PlayHover()
     {
-        hoverSound.Play();
+        _hoverSound.Play();
     }
 
     public void PlaySFXHover()
     {
-        sfxhoversound.Play();
+        _sfxhoversound.Play();
     }
 
     public void PlayClick()
     {
-        clickSound.Play();
+        _clickSound.Play();
     }
 
     public void AreYouSure()
     {
-        areYouSure.SetActive(true);
+        _areYouSure.SetActive(true);
         DisablePlayCampaign();
     }
 
     public void No()
     {
-        areYouSure.SetActive(false);
+        _areYouSure.SetActive(false);
     }
 
     public void Yes()
     {
         Application.Quit();
+    }
+
+    public void CreditsActivated()
+    {
+        _animationCredit.SetActive(true);
+    }
+
+    public void CreditsDesactivated()
+    {
+        _animationCredit.SetActive(false);
     }
 }
