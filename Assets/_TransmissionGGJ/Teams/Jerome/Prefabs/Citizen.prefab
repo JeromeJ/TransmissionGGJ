@@ -127,12 +127,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4407d6d4103a30141ac9519075be3087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_transform: {fileID: 4807318923855628}
-  m_minConversationTime: 3
-  m_maxConversationTime: 30
+  m_transform: {fileID: 0}
+  m_nextDestination: {fileID: 0}
   m_interactivityRange: 5
   m_pointsOfInterest: []
   m_state: 1
+  m_conversationLength: 0
+  m_remainingConversationTime: 0
 --- !u!114 &114693168338546742
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -166,6 +167,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_transform: {fileID: 0}
+  m_minConversationTime: 3
+  m_maxConversationTime: 30
   m_probabilityToInteract: 70
 --- !u!114 &114742055379537048
 MonoBehaviour:

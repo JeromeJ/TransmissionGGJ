@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,6 +7,12 @@ using UnityEngine.Events;
 using UnityStandardAssets.Characters.ThirdPerson;
 using Random = System.Random;
 
+/// <summary>
+/// Current responsibilities:
+///     - Move the player around
+///     - Don't take any decision except where to stroll to next.
+///         -> Move that out? GameManager or Stroller script?
+/// </summary>
 [RequireComponent(typeof(NavMeshAgent))]
 public class CitizenAgent : DualBehaviour
 {
@@ -27,6 +32,8 @@ public class CitizenAgent : DualBehaviour
 
     #region Controls
 
+    [Header("Debug")]
+
     public E_States m_state = E_States.STROLLING;
 
     #endregion
@@ -42,7 +49,8 @@ public class CitizenAgent : DualBehaviour
         DEAD = 4,
     }
 
-    // [System.Serializable] // Can't be used via the Inspector (only to give constant value; which we don't want)
+    // Can't be used via the Inspector (only to give constant value; which we don't want)
+    // [System.Serializable]
     public class InteractiveRange : UnityEvent<CitizenAgent> { }
 
     #endregion
@@ -57,6 +65,8 @@ public class CitizenAgent : DualBehaviour
 
     protected override void Awake()
     {
+        base.Awake();
+
         m_navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
@@ -100,7 +110,7 @@ public class CitizenAgent : DualBehaviour
     private void WarnIfNoPointOfInterestsSet()
     {
         if (m_pointsOfInterest == null || !m_pointsOfInterest.Any())
-            Debug.LogWarning("CitizenAgent: I don't know where to go! (No points of interests set)", this.gameObject);
+            Debug.LogError("CitizenAgent: I don't know where to go! (No points of interests set)", this.gameObject);
     }
 
     private void ExternallyControlledStateMachine()
@@ -108,7 +118,7 @@ public class CitizenAgent : DualBehaviour
         switch (m_state)
         {
             case E_States.INVALID:
-                Debug.LogWarning("INVALID STATE", gameObject);
+                Debug.LogError("INVALID STATE", gameObject);
                 Debug.Break();
 
                 break;
@@ -228,7 +238,7 @@ public class CitizenAgent : DualBehaviour
             case E_States.INTERACTING:
                 if (m_recipient == null)
                 {
-                    Debug.LogWarning("No m_recipient set to go talk to!", gameObject);
+                    Debug.LogError("No m_recipient set to go talk to!", gameObject);
 
                     // Do this or?
                     _state = E_States.INVALID;
