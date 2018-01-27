@@ -4,4 +4,7 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_TransmissionGGJ/Teams/Jerome/Scenes/main-jerome.unity
+    guid: 52db3de5ff328ed48b1f2b0a1e7a131c

@@ -1,12 +1,18 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using UnityStandardAssets.Characters.ThirdPerson;
 using Random = System.Random;
 
+/// <summary>
+/// Current responsibilities:
+///     - Move the player around
+///     - Don't take any decision except where to stroll to next.
+///         -> Move that out? GameManager or Stroller script?
+/// </summary>
 [RequireComponent(typeof(NavMeshAgent))]
 public class CitizenAgent : DualBehaviour
 {
@@ -26,6 +32,8 @@ public class CitizenAgent : DualBehaviour
 
     #region Controls
 
+    [Header("Debug")]
+
     public E_States m_state = E_States.STROLLING;
 
     #endregion
@@ -41,7 +49,8 @@ public class CitizenAgent : DualBehaviour
         DEAD = 4,
     }
 
-    // [System.Serializable] // Can't be used via the Inspector (only to give constant value; which we don't want)
+    // Can't be used via the Inspector (only to give constant value; which we don't want)
+    // [System.Serializable]
     public class InteractiveRange : UnityEvent<CitizenAgent> { }
 
     #endregion
@@ -56,6 +65,8 @@ public class CitizenAgent : DualBehaviour
 
     protected override void Awake()
     {
+        base.Awake();
+
         m_navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
@@ -78,7 +89,7 @@ public class CitizenAgent : DualBehaviour
     {
         // Citizens need to be able to collide with each others to enable this trigger :<
         // Is this problematic? Do we need a workaround?
-        if(other.tag == "Citizen")
+        if(other.tag == "Citizen" && this.tag == "Citizen")
             m_isInInteractivityRange.Invoke(other.GetComponent<CitizenAgent>());
     }
 
@@ -99,7 +110,7 @@ public class CitizenAgent : DualBehaviour
     private void WarnIfNoPointOfInterestsSet()
     {
         if (m_pointsOfInterest == null || !m_pointsOfInterest.Any())
-            Debug.LogWarning("CitizenAgent: I don't know where to go! (No points of interests set)", this.gameObject);
+            Debug.LogError("CitizenAgent: I don't know where to go! (No points of interests set)", this.gameObject);
     }
 
     private void ExternallyControlledStateMachine()
@@ -107,20 +118,22 @@ public class CitizenAgent : DualBehaviour
         switch (m_state)
         {
             case E_States.INVALID:
-                Debug.LogWarning("INVALID STATE", gameObject);
+                Debug.LogError("INVALID STATE", gameObject);
                 Debug.Break();
 
                 break;
             case E_States.STROLLING:
                 MoveToDestination();
 
-                if(CheckIfWeArrived())
+                if(CheckIfArrived())
                     m_nextDestination = PickNextDestination();
 
                 break;
             case E_States.INTERACTING:
-
                 MoveToDestination();
+
+                if (CheckIfArrived())
+                    m_transform.LookAt(m_recipient.transform);
 
                 if (ConversationIsOver())
                     SwitchToState(E_States.STROLLING);
@@ -153,10 +166,13 @@ public class CitizenAgent : DualBehaviour
 
     private void MoveToDestination(Vector3 _destination)
     {
-        m_navMeshAgent.SetDestination(_destination);
+        AICharacterControl AIController = GetComponent<AICharacterControl>();
+        AIController.SetTarget(_destination);
+
+        //m_navMeshAgent.SetDestination(_destination);
     }
 
-    private bool CheckIfWeArrived()
+    private bool CheckIfArrived()
     {
         // Source: https://answers.unity.com/answers/746157/view.html
         // Check if we've reached the destination
@@ -224,7 +240,7 @@ public class CitizenAgent : DualBehaviour
             case E_States.INTERACTING:
                 if (m_recipient == null)
                 {
-                    Debug.LogWarning("No m_recipient set to go talk to!", gameObject);
+                    Debug.LogError("No m_recipient set to go talk to!", gameObject);
 
                     // Do this or?
                     _state = E_States.INVALID;
@@ -234,7 +250,10 @@ public class CitizenAgent : DualBehaviour
                     if (m_initiator)
                         m_nextDestination = GoTalkTo(m_recipient);
                     else
+                    {
                         m_nextDestination = WaitForTalker();
+                        m_transform.LookAt(m_recipient.transform);
+                    }
 
                     // DateTimeOffset.Now.ToUnixTimeSeconds() in NET 4.6
                     // m_talkUntil = (Int32)(DateTime.UtcNow.AddSeconds(conversationLength).Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
