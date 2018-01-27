@@ -14,6 +14,7 @@ public class CitizenAgent : DualBehaviour
 
     #region Config (Required to work)
 
+    [Range(1, 10)] // Capped because conversation start from afar (and might end before they join up, if set too big)
     public float m_interactivityRange = 5;
     public InteractiveRange m_isInInteractivityRange = new InteractiveRange();
 
@@ -39,7 +40,7 @@ public class CitizenAgent : DualBehaviour
     }
 
     // [System.Serializable] // Can't be used via the Inspector (only to give constant value; which we don't want)
-    public class InteractiveRange : UnityEvent<GameObject> { }
+    public class InteractiveRange : UnityEvent<CitizenAgent> { }
 
     #endregion
 
@@ -60,9 +61,10 @@ public class CitizenAgent : DualBehaviour
     {
         WarnIfNoPointOfInterestsSet();
 
-        SetupInteractivityRangeDetection();
+        // Initialization
+        SwitchToState(m_state);
 
-        //m_isInInteractivityRange.Invoke(GameObject.Find("Citizen (1)"));
+        SetupInteractivityRangeDetection();
     }
 
     private void Update()
@@ -72,7 +74,10 @@ public class CitizenAgent : DualBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        m_isInInteractivityRange.Invoke(other.gameObject);
+        // Citizens need to be able to collide with each others to enable this trigger :<
+        // Is this problematic? Do we need a workaround?
+        if(other.tag == "Citizen")
+            m_isInInteractivityRange.Invoke(other.GetComponent<CitizenAgent>());
     }
 
     #endregion
@@ -105,11 +110,6 @@ public class CitizenAgent : DualBehaviour
 
                 break;
             case E_States.STROLLING:
-                // Dev note: Would be nice if this could be in some sort of Init separate state
-                // instead of running this every frame?
-                if (m_nextDestination == null)
-                    m_nextDestination = PickNextDestination();
-
                 MoveToDestination();
 
                 if(CheckIfWeArrived())
@@ -117,12 +117,26 @@ public class CitizenAgent : DualBehaviour
 
                 break;
             case E_States.INTERACTING:
+
+                MoveToDestination();
+
+                if (ConversationIsOver())
+                    SwitchToState(E_States.STROLLING);
+
                 break;
             case E_States.DEAD:
                 break;
             default:
                 break;
         }
+    }
+
+    private bool ConversationIsOver()
+    {
+        // Caution: Doesn't use Time /!\
+        m_remainingConversationTime = (m_talkUntil - DateTime.UtcNow).TotalSeconds;
+
+        return m_remainingConversationTime < 0;
     }
 
     private void MoveToDestination()
@@ -167,6 +181,84 @@ public class CitizenAgent : DualBehaviour
         return m_pointsOfInterest[pickedAtRandom];
     }
 
+    public bool CanSwitchToInteracting()
+    {
+        return m_state == E_States.STROLLING;
+
+        //switch (m_state)
+        //{
+        //    case E_States.INVALID:
+        //        return false;
+        //    case E_States.STROLLING:
+        //        return true;
+        //    case E_States.INTERACTING:
+        //        return false;
+        //    case E_States.DEAD:
+        //        return false;
+        //    default:
+        //        return false;
+        //}
+    }
+
+    public void StartConversationWith(CitizenAgent _recipient, double _conversationLength, bool _initiator = false)
+    {
+        m_recipient = _recipient;
+        m_initiator = _initiator;
+        m_conversationLength = _conversationLength;
+        SwitchToState(E_States.INTERACTING);
+    }
+
+    private void SwitchToState(E_States _state)
+    {
+        switch (_state)
+        {
+            case E_States.INVALID:
+                break;
+            case E_States.STROLLING:
+                if (m_nextDestination == null)
+                    m_nextDestination = PickNextDestination();
+
+                break;
+            case E_States.INTERACTING:
+                if (m_recipient == null)
+                {
+                    Debug.LogWarning("No m_recipient set to go talk to!", gameObject);
+
+                    // Do this or?
+                    _state = E_States.INVALID;
+                }
+                else
+                {
+                    if (m_initiator)
+                        m_nextDestination = GoTalkTo(m_recipient);
+                    else
+                        m_nextDestination = WaitForTalker();
+
+                    // DateTimeOffset.Now.ToUnixTimeSeconds() in NET 4.6
+                    // m_talkUntil = (Int32)(DateTime.UtcNow.AddSeconds(conversationLength).Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+                    m_talkUntil = DateTime.UtcNow.AddSeconds(m_conversationLength);
+                }
+
+                break;
+            case E_States.DEAD:
+                break;
+            default:
+                break;
+        }
+
+        m_state = _state;
+    }
+
+    private Transform GoTalkTo(CitizenAgent m_recipient)
+    {
+        return m_recipient.transform;
+    }
+
+    private Transform WaitForTalker()
+    {
+        return m_transform;
+    }
+
     #endregion
 
     #region Tools Debug and Utility
@@ -177,6 +269,9 @@ public class CitizenAgent : DualBehaviour
 
     #region Serialized
 
+    [SerializeField] public double m_conversationLength;
+    [SerializeField] private double m_remainingConversationTime;
+
     #endregion
 
     #region "Others"
@@ -184,13 +279,19 @@ public class CitizenAgent : DualBehaviour
     /// <summary>
     /// [TODO] Make seedable easily (idea: through ScriptableObject)
     /// </summary>
-    static Random rnd = new Random();
+    static private Random rnd = new Random();
 
     #endregion
 
     #region Dynamic
+
     private Transform m_nextDestination;
     private NavMeshAgent m_navMeshAgent;
+
+    private CitizenAgent m_recipient;
+    private bool m_initiator;
+    private DateTime m_talkUntil;
+
     #endregion
 
     #endregion

@@ -26,6 +26,8 @@ GameObject:
   - component: {fileID: 23998596538114178}
   - component: {fileID: 65605864972286988}
   - component: {fileID: 195238523138084928}
+  - component: {fileID: 54947652655569554}
+  - component: {fileID: 114693168338546742}
   m_Layer: 8
   m_Name: Citizen
   m_TagString: Citizen
@@ -87,6 +89,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1057186342961782}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54947652655569554
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1057186342961782}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!65 &65605864972286988
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -111,9 +128,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_transform: {fileID: 4807318923855628}
+  m_minConversationTime: 3
+  m_maxConversationTime: 30
   m_interactivityRange: 5
   m_pointsOfInterest: []
   m_state: 1
+--- !u!114 &114693168338546742
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1057186342961782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a597a964681bdb54e90cb620ffbbdfdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0
+  m_knowledge: 223
+  m_disease: 418
+  m_diseaseReception: 0.1
+  m_knowledgeReception: 0.1
+  m_levelStep: 000000000f0000003200000064000000af000000130100009a0100003f02000007030000e8030000
+  m_contact: {fileID: 0}
+  m_isCommunicating: 1
+  m_levelKnowledge: 0
+  m_levelDisease: 0
 --- !u!114 &114722245362070638
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -126,11 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_transform: {fileID: 0}
-  m_IsInteracting:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  m_probabilityToInteract: 70
 --- !u!114 &114742055379537048
 MonoBehaviour:
   m_ObjectHideFlags: 1

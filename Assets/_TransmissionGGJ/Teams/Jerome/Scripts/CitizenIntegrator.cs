@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO: Add requirements
 public class CitizenIntegrator : DualBehaviour
 {
     #region Public Members
@@ -15,19 +16,27 @@ public class CitizenIntegrator : DualBehaviour
 
     #region System
 
+    protected override void Awake()
+    {
+        m_citizenAgent = GetComponent<CitizenAgent>();
+        m_citizenManager = GetComponent<CitizenManager>();
+        m_citizenTransmitter = GetComponent<TransmissionManager>();
+    }
+
     protected void Start()
     {
         // At the Start or Awake?
-        GetComponent<CitizenAgent>().m_isInInteractivityRange.AddListener(
-            GetComponent<CitizenManager>().OnPlayerInInteractivityRange
+        m_citizenAgent.m_isInInteractivityRange.AddListener(
+            m_citizenManager.OnPlayerInInteractivityRange
         );
 
-        GetComponent<CitizenManager>().m_IsInteracting.AddListener(callTristanCode);
+        m_citizenManager.m_IsInteracting.AddListener(CallTransmitter);
     }
 
-    private void callTristanCode()
+    private void CallTransmitter(CitizenAgent _recipient)
     {
-        throw new NotImplementedException();
+        m_citizenTransmitter.InitiateTransmission(_recipient.gameObject);
+        _recipient.GetComponent<TransmissionManager>().InitiateTransmission(gameObject);
     }
 
     #endregion
@@ -41,6 +50,10 @@ public class CitizenIntegrator : DualBehaviour
     #endregion
 
     #region Private and Protected Members
+
+    private CitizenAgent m_citizenAgent;
+    private CitizenManager m_citizenManager;
+    private TransmissionManager m_citizenTransmitter;
 
     #endregion
 }
