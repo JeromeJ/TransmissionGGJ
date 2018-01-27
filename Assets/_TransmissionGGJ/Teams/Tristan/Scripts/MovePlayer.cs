@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class MovePlayer : MonoBehaviour {
 
-    // Use this for initialization
     NavMeshAgent agent;
 
     void Start()
