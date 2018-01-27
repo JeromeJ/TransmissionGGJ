@@ -14,6 +14,8 @@ public class CitizenAgent : DualBehaviour
 
     #region Config (Required to work)
 
+    public Transform m_nextDestination;
+
     [Range(1, 10)] // Capped because conversation start from afar (and might end before they join up, if set too big)
     public float m_interactivityRange = 5;
     public InteractiveRange m_isInInteractivityRange = new InteractiveRange();
@@ -285,7 +287,6 @@ public class CitizenAgent : DualBehaviour
 
     #region Dynamic
 
-    private Transform m_nextDestination;
     private NavMeshAgent m_navMeshAgent;
 
     private CitizenAgent m_recipient;
