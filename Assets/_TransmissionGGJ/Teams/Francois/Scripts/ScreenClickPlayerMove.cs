@@ -50,8 +50,8 @@ public class ScreenClickPlayerMove : MonoBehaviour {
                     if (otherCitizen.CanSwitchToInteracting())
                     {
                         CitizenAgent citizenAgent = GetComponent<CitizenAgent>();
-                        citizenAgent.StartConversationWith(otherCitizen, 5, _initiator: true);
-                        otherCitizen.StartConversationWith(citizenAgent, 5);
+                        citizenAgent.StartConversationWith(otherCitizen, 1.1, _initiator: true);
+                        otherCitizen.StartConversationWith(citizenAgent, 1.1);
 
                         GetComponent<CitizenManager>().m_IsInteracting.Invoke(otherCitizen);
                     }
@@ -62,5 +62,6 @@ public class ScreenClickPlayerMove : MonoBehaviour {
 
     private Transform m_CitizenToFollow;
     private bool m_followCitizen;
+    private bool m_inTransmission;
     private NavMeshAgent m_navMeshAgent;
 }
