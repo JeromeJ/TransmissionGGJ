@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 using UnityStandardAssets.Characters.ThirdPerson;
 
 [RequireComponent(typeof(AICharacterControl))]
@@ -8,6 +9,7 @@ public class ScreenClickPlayerMove : MonoBehaviour {
 
     void Start()
     {
+        m_navMeshAgent = GetComponent<NavMeshAgent>();
         m_AIcontroller = GetComponent<AICharacterControl>();
     }
 
@@ -37,9 +39,28 @@ public class ScreenClickPlayerMove : MonoBehaviour {
         {
             Debug.Log(m_CitizenToFollow.transform.position);
             m_AIcontroller.SetTarget(m_CitizenToFollow.position);
+
+            if (!m_navMeshAgent.pathPending)
+            {
+                if (m_navMeshAgent.remainingDistance <= m_navMeshAgent.stoppingDistance)
+                {
+                    // We are near citizen
+                    CitizenAgent otherCitizen = m_CitizenToFollow.GetComponent<CitizenAgent>();
+
+                    if (otherCitizen.CanSwitchToInteracting())
+                    {
+                        CitizenAgent citizenAgent = GetComponent<CitizenAgent>();
+                        citizenAgent.StartConversationWith(otherCitizen, 5, _initiator: true);
+                        otherCitizen.StartConversationWith(citizenAgent, 5);
+
+                        GetComponent<CitizenManager>().m_IsInteracting.Invoke(otherCitizen);
+                    }
+                }
+            }
         }
     }
 
     private Transform m_CitizenToFollow;
     private bool m_followCitizen;
+    private NavMeshAgent m_navMeshAgent;
 }
