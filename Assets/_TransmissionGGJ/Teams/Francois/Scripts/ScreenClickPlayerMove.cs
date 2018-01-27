@@ -19,8 +19,27 @@ public class ScreenClickPlayerMove : MonoBehaviour {
 
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
             {
-                m_AIcontroller.SetTarget(hit.point);
+                if (hit.collider.transform.tag == "Citizen")
+                {
+                    m_followCitizen = true;
+                    m_CitizenToFollow = hit.collider.gameObject.transform;
+                    m_AIcontroller.SetTarget(m_CitizenToFollow.transform.position);
+                }
+                else
+                {
+                    m_followCitizen = false;
+                    m_CitizenToFollow = null;
+                    m_AIcontroller.SetTarget(hit.point);
+                }
             }
         }
+        else if (m_followCitizen)
+        {
+            Debug.Log(m_CitizenToFollow.transform.position);
+            m_AIcontroller.SetTarget(m_CitizenToFollow.position);
+        }
     }
+
+    private Transform m_CitizenToFollow;
+    private bool m_followCitizen;
 }
