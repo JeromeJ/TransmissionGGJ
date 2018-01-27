@@ -19,7 +19,7 @@ public class ScreenClickPlayerMove : MonoBehaviour {
 
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
             {
-                m_AIcontroller.SetTarget(hit.transform);
+                m_AIcontroller.SetTarget(hit.point);
             }
         }
     }
