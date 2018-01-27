@@ -5,35 +5,43 @@ using UnityEngine;
 public class TransmissionManager : MonoBehaviour {
 
     public bool isPlayer;
-    [Range(0, 100)]
-    public int m_knowledge;
-    [Range(0, 100)]
-    public int m_disease;
+    [Range(0, 1000)]
+    public float m_knowledge;
+    [Range(0, 1000)]
+    public float m_disease;
     [Range(0f, 1f)]
     public float m_diseaseReception;
     [Range(0f, 1f)]
-    public float m_knowlegeReception;
-    public bool m_isCommunicating;
+    public float m_knowledgeReception;
+    public int[] m_levelStep = new int[10];
 
     //Debug
     public TransmissionManager m_contact;
     
 
-
-
     // Use this for initialization
     void Start () {
-		
+        m_levelKnowledge = 1;
+        m_levelDisease = 1;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        // Set Disease count calculated from previous frame
         if (m_bufferDisease > 0)
         {
             m_disease += m_bufferDisease;
             m_bufferDisease = 0;
+            if (m_disease >= 1000)
+            {
+                m_disease = 1000f;
+                //TODO: die!
+            }
         }
 
+        CheckLevel();
+
+        // If isCommunating, Process the transmission
         if (m_isCommunicating)
         {
             m_timeBuffer += Time.deltaTime;
@@ -43,14 +51,6 @@ public class TransmissionManager : MonoBehaviour {
                 m_timeBuffer -= 1f;
             }
         }
-        
-        //if (m_contact)
-        //{
-        //    m_knowledge = m_bufferKnowledge;
-        //    m_disease = m_bufferDisease;
-        //    m_contact = false;
-        //    Debug.Log("Contact");
-        //}
 	}
 
     void InitiateTransmission(TransmissionManager _contact)
@@ -74,52 +74,28 @@ public class TransmissionManager : MonoBehaviour {
 
     void UpdateKnowledge()
     {
-        if(m_contact.m_knowledge > m_knowledge)
-        {
-            m_knowledge += (int)(m_contact.m_knowledge * m_knowlegeReception);
-        }
+        if(m_contact.m_levelKnowledge > m_levelKnowledge+1)
+            m_knowledge += (m_contact.m_knowledge * m_knowledgeReception);
+        if (m_knowledge > 1000) m_knowledge = 1000f;
     }
 
     void UpdateDisease()
     {
         if (m_contact.m_disease > m_contact.m_knowledge)
-        {
-            m_bufferDisease = (int)((m_contact.m_disease - m_contact.m_knowledge) * m_diseaseReception);
-        }
+            m_bufferDisease = ((m_contact.m_disease - m_contact.m_knowledge) * m_diseaseReception);
     }
 
+    void CheckLevel()
+    {
+        if ((int)m_knowledge > m_levelStep[m_levelKnowledge])
+            m_levelKnowledge++;        
+        if ((int)m_disease > m_levelStep[m_levelDisease])
+            m_levelDisease++;
+    }
 
-    //void OnCollisionEnter(Collision collision)
-    //{
-        
-        //contactTransmission = collision.gameObject.GetComponent<TransmissionManager>();
-        //Debug.Log("Disease contact : " + contactTransmission.m_disease);
-        //Debug.Log("Disease self : " + m_disease);
-
-        //if (contactTransmission.m_knowledge > m_knowledge)
-        //{
-        //    m_bufferKnowledge = contactTransmission.m_knowledge + (int)(m_knowledge * m_ratioTransmissionKnowledge);
-        //    Debug.Log(m_bufferKnowledge);
-        //}
-
-        //m_bufferDisease = contactTransmission.m_disease + (int)(m_disease * m_ratioTransmissionDisease);
-        
-        //Debug.Log(""+(int)(m_disease * m_ratioTransmissionDisease));
-        //Debug.Log(m_bufferDisease);
-        //contactTransmission = null;
-        //m_inContact = true;
-
-        //if (contactTransmission.isPlayer)
-        //{
-        //    // TODO: Lancer un cooldown pour éviter de spammer le knowledge sur les civils
-        //}
-
-    //}
-
-    //private TransmissionManager contactTransmission;
-    //private int m_bufferKnowledge;
-    private int m_bufferDisease;
-    //private bool m_inContact;
+    private float m_bufferDisease;
     private float m_timeBuffer;
-
+    [SerializeField] private bool m_isCommunicating;
+    [SerializeField] private int m_levelKnowledge;
+    [SerializeField] private int m_levelDisease;
 }
