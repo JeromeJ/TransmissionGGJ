@@ -202,7 +202,7 @@ MonoBehaviour:
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
   m_AnimSpeedMultiplier: 1
-  m_GroundCheckDistance: 0.1
+  m_GroundCheckDistance: 0.6
   _canRun: 0
   _canJump: 0
 --- !u!114 &114496452429686542
