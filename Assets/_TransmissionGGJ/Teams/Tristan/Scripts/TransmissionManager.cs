@@ -53,7 +53,7 @@ public class TransmissionManager : MonoBehaviour {
         }
 	}
 
-    public InitiateTransmission(GameObject _citizen)
+    public void InitiateTransmission(GameObject _citizen)
     {
         m_isCommunicating = true;
         m_contact = _citizen.GetComponent<TransmissionManager>();
