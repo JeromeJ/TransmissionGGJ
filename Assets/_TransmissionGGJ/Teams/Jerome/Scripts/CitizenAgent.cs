@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using UnityStandardAssets.Characters.ThirdPerson;
 using Random = System.Random;
 
 [RequireComponent(typeof(NavMeshAgent))]
@@ -153,7 +154,10 @@ public class CitizenAgent : DualBehaviour
 
     private void MoveToDestination(Vector3 _destination)
     {
-        m_navMeshAgent.SetDestination(_destination);
+        AICharacterControl AIController = GetComponent<AICharacterControl>();
+        AIController.SetTarget(_destination);
+
+        //m_navMeshAgent.SetDestination(_destination);
     }
 
     private bool CheckIfWeArrived()
