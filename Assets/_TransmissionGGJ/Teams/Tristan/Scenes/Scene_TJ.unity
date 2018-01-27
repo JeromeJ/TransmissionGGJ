@@ -208,7 +208,7 @@ GameObject:
   - component: {fileID: 127025467}
   m_Layer: 0
   m_Name: P2
-  m_TagString: Untagged
+  m_TagString: Citizen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -225,13 +225,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 0
-  m_knowledge: 40
-  m_disease: 40
+  m_knowledge: 366
+  m_disease: 415
   m_diseaseReception: 0.1
-  m_knowledgeReception: 0
-  m_isCommunicating: 0
+  m_knowledgeReception: 0.1
   m_levelStep: 000000000f0000003200000064000000af000000130100009a0100003f02000007030000e8030000
   m_contact: {fileID: 282956207}
+  m_isCommunicating: 1
+  m_levelKnowledge: 0
+  m_levelDisease: 0
 --- !u!23 &127025468
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -312,7 +314,7 @@ GameObject:
   - component: {fileID: 282956207}
   m_Layer: 0
   m_Name: P1
-  m_TagString: Untagged
+  m_TagString: Citizen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -329,13 +331,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 0
-  m_knowledge: 10
-  m_disease: 50
-  m_diseaseReception: 0.2
-  m_knowledgeReception: 0
-  m_isCommunicating: 0
+  m_knowledge: 223
+  m_disease: 418
+  m_diseaseReception: 0.1
+  m_knowledgeReception: 0.1
   m_levelStep: 000000000f0000003200000064000000af000000130100009a0100003f02000007030000e8030000
   m_contact: {fileID: 127025467}
+  m_isCommunicating: 1
+  m_levelKnowledge: 0
+  m_levelDisease: 0
 --- !u!23 &282956208
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -401,6 +405,47 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &596730210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 596730212}
+  - component: {fileID: 596730211}
+  m_Layer: 0
+  m_Name: '#SCRIPT'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &596730211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 596730210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe25aef87d6396949a8513cd737dcb20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_transmissionManager: {fileID: 0}
+--- !u!4 &596730212
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 596730210}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.89599675, y: -0.9906893, z: 0.08806853}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1739926606
 GameObject:

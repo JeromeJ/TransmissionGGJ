@@ -81,7 +81,7 @@ public class TransmissionManager : MonoBehaviour {
 
     void UpdateDisease()
     {
-        if (m_contact.m_disease > m_contact.m_knowledge)
+        if (m_contact.m_disease >= m_contact.m_knowledge)
             m_bufferDisease = ((m_contact.m_disease - m_contact.m_knowledge) * m_diseaseReception);
     }
 
