@@ -8,10 +8,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: { fileID: 2108210716, guid: 89f0137620f6af44b9ba852b4190e64e, type: 3}
+  m_Script: {fileID: 2108210716, guid: 89f0137620f6af44b9ba852b4190e64e, type: 3}
   m_Name: Yellow to Orange - Vertical
   m_EditorClassIdentifier: 
-  topLeft: {r: 1, g: 1, b: 0.5661765, a: 1}
-  topRight: {r: 1, g: 1, b: 0.252, a: 1}
-  bottomLeft: {r: 1, g: 0, b: 0, a: 1}
-  bottomRight: {r: 1, g: 0, b: 0, a: 1}
+  topLeft: {r: 0, g: 0.3908236, b: 0.64705884, a: 0.803}
+  topRight: {r: 0.8586207, g: 0.37092412, b: 0, a: 0.759}
+  bottomLeft: {r: 0.08272059, g: 0.2785738, b: 0.66176474, a: 1}
+  bottomRight: {r: 0.20242214, g: 0.5735294, b: 0.5735294, a: 1}

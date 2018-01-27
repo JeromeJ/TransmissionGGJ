@@ -20,6 +20,7 @@ public class MainMenu : MonoBehaviour
 
     public GameObject _areYouSure;
     public Animator _cameraObject;
+    public Animator _virusBox;
 
     public GameObject _continueBtn;
     public GameObject _newGameBtn;
@@ -58,24 +59,29 @@ public class MainMenu : MonoBehaviour
     public void Position1()
     {
         _cameraObject.SetFloat("Animate", 0);
+        _virusBox.SetFloat("AnimVirus1", 0);
+
     }
 
     public void Position2()
     {
         DisablePlayCampaign();
         _cameraObject.SetFloat("Animate", 1);
+        _virusBox.SetFloat("AnimVirus1", 1);
     }
 
     public void Position3()
     {
         DisablePlayCampaign();
         _cameraObject.SetFloat("Animate2", 1);
+        _virusBox.SetFloat("AnimVirus2", 1);
     }
 
     public void Position4()
     {
         
         _cameraObject.SetFloat("Animate2", 0);
+        _virusBox.SetFloat("AnimVirus2", 0);
     }
 
     public void GamePanel()
