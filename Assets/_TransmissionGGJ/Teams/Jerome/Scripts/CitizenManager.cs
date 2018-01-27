@@ -57,20 +57,6 @@ public class CitizenManager : DualBehaviour
         m_citizenAgent = GetComponent<CitizenAgent>();
     }
 
-    protected void Start()
-    {
-        StartCoroutine(RemoveUMABug());
-    }
-
-    private IEnumerator RemoveUMABug()
-    {
-        // Doesn't work
-        yield return new WaitForSeconds(4);
-        GetComponent<Rigidbody>().isKinematic = false;
-        yield return new WaitForSeconds(4);
-        GetComponent<Rigidbody>().isKinematic = true;
-    }
-
     #endregion
 
     #region Class Methods
