@@ -207,6 +207,10 @@ MonoBehaviour:
       _compatibleRaces:
       - HumanMaleDCS
       - HumanMale
+    - _recipeName: MaleShirt2
+      _compatibleRaces:
+      - HumanMale
+      - HumanMaleDCS
   raceAnimationControllers:
     defaultAnimationController: {fileID: 9100000, guid: e2cf68ff4b1ffda45a77f7307dd789b9,
       type: 2}

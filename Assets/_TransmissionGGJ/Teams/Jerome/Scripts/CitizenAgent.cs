@@ -89,7 +89,7 @@ public class CitizenAgent : DualBehaviour
     {
         // Citizens need to be able to collide with each others to enable this trigger :<
         // Is this problematic? Do we need a workaround?
-        if(other.tag == "Citizen")
+        if(other.tag == "Citizen" && this.tag == "Citizen")
             m_isInInteractivityRange.Invoke(other.GetComponent<CitizenAgent>());
     }
 
@@ -125,13 +125,15 @@ public class CitizenAgent : DualBehaviour
             case E_States.STROLLING:
                 MoveToDestination();
 
-                if(CheckIfWeArrived())
+                if(CheckIfArrived())
                     m_nextDestination = PickNextDestination();
 
                 break;
             case E_States.INTERACTING:
-
                 MoveToDestination();
+
+                if (CheckIfArrived())
+                    m_transform.LookAt(m_recipient.transform);
 
                 if (ConversationIsOver())
                     SwitchToState(E_States.STROLLING);
@@ -170,7 +172,7 @@ public class CitizenAgent : DualBehaviour
         //m_navMeshAgent.SetDestination(_destination);
     }
 
-    private bool CheckIfWeArrived()
+    private bool CheckIfArrived()
     {
         // Source: https://answers.unity.com/answers/746157/view.html
         // Check if we've reached the destination
@@ -248,7 +250,10 @@ public class CitizenAgent : DualBehaviour
                     if (m_initiator)
                         m_nextDestination = GoTalkTo(m_recipient);
                     else
+                    {
                         m_nextDestination = WaitForTalker();
+                        m_transform.LookAt(m_recipient.transform);
+                    }
 
                     // DateTimeOffset.Now.ToUnixTimeSeconds() in NET 4.6
                     // m_talkUntil = (Int32)(DateTime.UtcNow.AddSeconds(conversationLength).Subtract(new DateTime(1970, 1, 1))).TotalSeconds;

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 using UnityEngine.Events;
 
 using Random = System.Random;
@@ -53,6 +55,20 @@ public class CitizenManager : DualBehaviour
     protected override void Awake()
     {
         m_citizenAgent = GetComponent<CitizenAgent>();
+    }
+
+    protected void Start()
+    {
+        StartCoroutine(RemoveUMABug());
+    }
+
+    private IEnumerator RemoveUMABug()
+    {
+        // Doesn't work
+        yield return new WaitForSeconds(4);
+        GetComponent<Rigidbody>().isKinematic = false;
+        yield return new WaitForSeconds(4);
+        GetComponent<Rigidbody>().isKinematic = true;
     }
 
     #endregion
