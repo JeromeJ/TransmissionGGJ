@@ -202,7 +202,11 @@ MonoBehaviour:
   rebuildSkeleton: 0
   preloadWardrobeRecipes:
     loadDefaultRecipes: 1
-    recipes: []
+    recipes:
+    - _recipeName: MaleJeans
+      _compatibleRaces:
+      - HumanMaleDCS
+      - HumanMale
   raceAnimationControllers:
     defaultAnimationController: {fileID: 9100000, guid: e2cf68ff4b1ffda45a77f7307dd789b9,
       type: 2}
@@ -258,7 +262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_transform: {fileID: 0}
   m_nextDestination: {fileID: 0}
-  m_interactivityRange: 5
+  m_interactivityRange: 2.5
   m_pointsOfInterest:
   - {fileID: 0}
   - {fileID: 0}
