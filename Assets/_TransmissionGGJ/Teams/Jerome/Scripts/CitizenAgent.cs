@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
-
+using UnityEngine.Events;
 using Random = System.Random;
 
 [RequireComponent(typeof(NavMeshAgent))]
@@ -14,7 +14,9 @@ public class CitizenAgent : DualBehaviour
 
     #region Config (Required to work)
 
-    public float m_interactableBubbleSize = 5;
+    public float m_interactivityRange = 5;
+    public InteractiveRange m_isInInteractivityRange = new InteractiveRange();
+
     public List<Transform> m_pointsOfInterest = new List<Transform>();
 
     #endregion
@@ -26,6 +28,7 @@ public class CitizenAgent : DualBehaviour
     #endregion
 
     #region Utils (what need to be public but is neither config or control)
+
     public enum E_States
     {
         INVALID = -1,
@@ -34,6 +37,10 @@ public class CitizenAgent : DualBehaviour
         INTERACTING = 2,
         DEAD = 4,
     }
+
+    // [System.Serializable] // Can't be used via the Inspector (only to give constant value; which we don't want)
+    public class InteractiveRange : UnityEvent<GameObject> { }
+
     #endregion
 
     #endregion
@@ -52,6 +59,10 @@ public class CitizenAgent : DualBehaviour
     protected void Start()
     {
         WarnIfNoPointOfInterestsSet();
+
+        SetupInteractivityRangeDetection();
+
+        //m_isInInteractivityRange.Invoke(GameObject.Find("Citizen (1)"));
     }
 
     private void Update()
@@ -59,9 +70,24 @@ public class CitizenAgent : DualBehaviour
         ExternallyControlledStateMachine();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        m_isInInteractivityRange.Invoke(other.gameObject);
+    }
+
     #endregion
 
     #region Class Methods
+
+    private void SetupInteractivityRangeDetection()
+    {
+        // TODO: Find a way to be able to distinguish different trigger source
+        // -> Idea: Use children (uuurh)
+        SphereCollider sc = gameObject.AddComponent<SphereCollider>();
+
+        sc.isTrigger = true;
+        sc.radius = m_interactivityRange;
+    }
 
     private void WarnIfNoPointOfInterestsSet()
     {
