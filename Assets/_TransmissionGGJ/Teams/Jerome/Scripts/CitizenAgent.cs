@@ -53,6 +53,9 @@ public class CitizenAgent : DualBehaviour
     // [System.Serializable]
     public class InteractiveRange : UnityEvent<CitizenAgent> { }
 
+    public StopInteraction m_IsDoneInteracting = new StopInteraction();
+    public class StopInteraction : UnityEvent<CitizenAgent> { }
+
     #endregion
 
     #endregion
@@ -136,7 +139,10 @@ public class CitizenAgent : DualBehaviour
                     m_transform.LookAt(m_recipient.transform);
 
                 if (ConversationIsOver())
+                {
+                    m_IsDoneInteracting.Invoke(this);
                     SwitchToState(E_States.STROLLING);
+                }
 
                 break;
             case E_States.DEAD:

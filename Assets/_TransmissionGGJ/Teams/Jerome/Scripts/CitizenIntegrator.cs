@@ -25,15 +25,23 @@ public class CitizenIntegrator : DualBehaviour
 
     protected void Start()
     {
-        // At the Start or Awake?
-        m_citizenAgent.m_isInInteractivityRange.AddListener(
-            m_citizenManager.OnPlayerInInteractivityRange
-        );
+        // Agent to Manager
+        m_citizenAgent.m_isInInteractivityRange.AddListener(m_citizenManager.OnPlayerInInteractivityRange);
 
-        m_citizenManager.m_IsInteracting.AddListener(CallTransmitter);
+        // Manager to Transmitter
+        m_citizenManager.m_IsInteracting.AddListener(StartTransmitting);
+
+        // Agent to Transmitter
+        m_citizenAgent.m_IsDoneInteracting.AddListener(StopTransmitting);
     }
 
-    private void CallTransmitter(CitizenAgent _recipient)
+    private void StopTransmitting(CitizenAgent _recipient)
+    {
+        m_citizenTransmitter.QuitTransmission();
+        _recipient.GetComponent<TransmissionManager>().QuitTransmission();
+    }
+
+    private void StartTransmitting(CitizenAgent _recipient)
     {
         m_citizenTransmitter.InitiateTransmission(_recipient.gameObject);
         _recipient.GetComponent<TransmissionManager>().InitiateTransmission(gameObject);

@@ -65,7 +65,7 @@ public class TransmissionManager : MonoBehaviour {
         UpdateDisease();
     }
 
-    void QuitTransmission()
+    public void QuitTransmission()
     {
         m_timeBuffer = 0f;
         m_isCommunicating = false;
