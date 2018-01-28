@@ -13,10 +13,10 @@ public class CameraMove : MonoBehaviour {
 
     [Header("zoom")]
     public float m_minZoom = 20f;
-    public float m_maxZoom = 72f;
+    public float m_maxZoom = 40f;
     public float m_zoomSpeed = 30f;
-    public float m_colliderXsizeVariationWithZoom = 3.6f;
-    public float m_colliderZsizeVariationWithZoom = 2f;
+    public float m_colliderXsizeVariationWithZoom = 3.8f;
+    public float m_colliderZsizeVariationWithZoom = 2.2f;
 
     private Vector3 m_velocity = new Vector3(0f, 0f, 0f);
     private Vector3 m_colliderSizeAjustment = new Vector3(0, 0, 0);
@@ -30,8 +30,8 @@ public class CameraMove : MonoBehaviour {
         if (!m_camera)
         {
             m_camera = gameObject.GetComponent<Camera>();
-            gameObject.transform.rotation = Quaternion.Euler(83f, 0f, 0f);
-            m_camera.orthographicSize = 72;
+            gameObject.transform.rotation = Quaternion.Euler(73f, 0f, 0f);
+            m_camera.fieldOfView = 40;
         }
         if (!m_cameraHolderBoxCollider)
         {
@@ -41,7 +41,7 @@ public class CameraMove : MonoBehaviour {
             }
             m_cameraHolderBoxCollider = m_cameraHolder.gameObject.GetComponent<BoxCollider>();
         }
-        m_cameraHolderBoxCollider.size.Set(251f, 10f, 145.7f);
+        m_cameraHolderBoxCollider.size.Set(136f, 10f, 74f);
         if (!m_cameraHolderRigidbody)
         {
             m_cameraHolderRigidbody = m_cameraHolder.GetComponent<Rigidbody>();
@@ -77,14 +77,15 @@ public class CameraMove : MonoBehaviour {
 
     private void ApplyMove(float moveHorizontal, float moveVertical)
     {
-        m_velocity.Set(moveHorizontal, 0.0f, moveVertical);
+        float AdaptMoveSpeedToZoom =  m_camera.fieldOfView / m_maxZoom;
+        m_velocity.Set(moveHorizontal * AdaptMoveSpeedToZoom, 0.0f, moveVertical * AdaptMoveSpeedToZoom);
         m_cameraHolderRigidbody.velocity = m_velocity;
     }
     private void ApplyZoom(float zoom)
     {
-        if((zoom > 0 && m_camera.orthographicSize > m_minZoom)|| (zoom < 0 && m_camera.orthographicSize < m_maxZoom))
+        if((zoom > 0 && m_camera.fieldOfView > m_minZoom)|| (zoom < 0 && m_camera.fieldOfView < m_maxZoom))
         {
-            m_camera.orthographicSize -= zoom;
+            m_camera.fieldOfView -= zoom;
             float xAdjustment = m_colliderXsizeVariationWithZoom * zoom;
             float zAdjustment = m_colliderZsizeVariationWithZoom * zoom;
             m_colliderSizeAjustment.Set(m_cameraHolderBoxCollider.size.x - xAdjustment,10, m_cameraHolderBoxCollider.size.z - zAdjustment);

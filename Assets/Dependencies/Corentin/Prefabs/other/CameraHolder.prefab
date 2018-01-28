@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 124668744908444942}
   - component: {fileID: 81060919719302390}
   - component: {fileID: 114397971388916050}
+  - component: {fileID: 114434377073061226}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -54,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1517748773154292}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8, y: 93.5, z: -12.6}
+  m_LocalPosition: {x: -8, y: 93.5, z: -40.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4587875136093860}
@@ -67,13 +68,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1571451936985124}
-  m_LocalRotation: {x: 0.66261995, y: -0, z: -0, w: 0.7489558}
+  m_LocalRotation: {x: 0.5224985, y: 0, z: 0, w: 0.8526402}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4032025946333046}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 83, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 63, y: 0, z: 0}
 --- !u!20 &20413570815959716
 Camera:
   m_ObjectHideFlags: 1
@@ -92,8 +93,8 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
-  orthographic: 1
+  field of view: 40
+  orthographic: 0
   orthographic size: 72
   m_Depth: -1
   m_CullingMask:
@@ -135,7 +136,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 251, y: 10, z: 145.7}
+  m_Size: {x: 136, y: 10, z: 74}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!81 &81060919719302390
 AudioListener:
@@ -160,11 +161,34 @@ MonoBehaviour:
   m_cameraHolderBoxCollider: {fileID: 65765009158417812}
   m_cameraHolderRigidbody: {fileID: 54699718781011080}
   m_camerSpeed: 100
-  m_minZoom: 20
-  m_maxZoom: 72
+  m_minZoom: 10
+  m_maxZoom: 40
   m_zoomSpeed: 30
-  m_colliderXsizeVariationWithZoom: 3.6
-  m_colliderZsizeVariationWithZoom: 2
+  m_colliderXsizeVariationWithZoom: 3.8
+  m_colliderZsizeVariationWithZoom: 2.2
+  m_velocity: {x: 0, y: 0, z: 0}
+  m_colliderSizeAjustment: {x: 0, y: 0, z: 0}
+--- !u!114 &114434377073061226
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1571451936985124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8130221cf2aaf143811befff7ee6d84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_cameraHolder: {fileID: 1517748773154292}
+  m_camera: {fileID: 20413570815959716}
+  m_cameraHolderBoxCollider: {fileID: 65765009158417812}
+  m_cameraHolderRigidbody: {fileID: 54699718781011080}
+  m_camerSpeed: 100
+  m_minZoom: 10
+  m_maxZoom: 40
+  m_zoomSpeed: 30
+  m_colliderXsizeVariationWithZoom: 3.8
+  m_colliderZsizeVariationWithZoom: 2.2
 --- !u!124 &124668744908444942
 Behaviour:
   m_ObjectHideFlags: 1
