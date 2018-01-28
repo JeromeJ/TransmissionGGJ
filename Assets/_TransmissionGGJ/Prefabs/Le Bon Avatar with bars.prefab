@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 114701767624923072}
   - component: {fileID: 114335583478936514}
   m_Layer: 8
-  m_Name: Le Bon Avatar Tristan
+  m_Name: Le Bon Avatar with bars
   m_TagString: Citizen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -451,12 +451,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 0
-  m_knowledge: 120
-  m_disease: 328
-  m_diseaseReception: 0.1
-  m_knowledgeReception: 0.1
-  m_spreadRadius: 0
-  m_spreadDangerosity: 0
+  m_knowledge: 0
+  m_disease: 0
+  m_diseaseReception: 0.05
+  m_knowledgeReception: 0.05
+  m_spreadRadius: 2
+  m_spreadDangerosity: 0.05
   m_levelStep: 000000000f0000003200000064000000af000000130100009a0100003f02000007030000e8030000
   m_isDead:
     m_PersistentCalls:
@@ -551,20 +551,7 @@ MonoBehaviour:
   m_transform: {fileID: 0}
   m_nextDestination: {fileID: 0}
   m_interactivityRange: 2.5
-  m_pointsOfInterest:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  m_pointsOfInterest: []
   m_state: 1
   m_conversationLength: 0
   m_remainingConversationTime: 0
