@@ -40,9 +40,11 @@ public class DeathManager : MonoBehaviour
         CitizenAgent _citizenAgent = gameObject.GetComponent<CitizenAgent>();
         if (_citizenAgent != null)
         {
-            //_citizenAgent.enabled = false;
-            _citizenAgent.m_state = CitizenAgent.E_States.DEAD;
+            _citizenAgent.SwitchToState(CitizenAgent.E_States.DEAD);
         }
-        else Debug.LogError("DeathManager : Can't find CitizenAgent component"); 
+        else Debug.LogError("DeathManager : Can't find CitizenAgent component");
+
+        m_transmissionManager.m_isDead.RemoveListener(DeathApply);
+        m_transmissionManager.enabled = false;
     }
 }
