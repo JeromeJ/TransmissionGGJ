@@ -40,6 +40,15 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 			m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 			m_OrigGroundCheckDistance = m_GroundCheckDistance;
+
+            if(gameObject.tag == "Player")
+            {
+                UMA.CharacterSystem.DynamicCharacterAvatar UMAScript = gameObject.GetComponent<UMA.CharacterSystem.DynamicCharacterAvatar>();
+                if(UMAScript != null)
+                {
+                    UMAScript.characterColors.SetColor("Shirt", Color.blue);
+                }
+            }
 		}
 
 
