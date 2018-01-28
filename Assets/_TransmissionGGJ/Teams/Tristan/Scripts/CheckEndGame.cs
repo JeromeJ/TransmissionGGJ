@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class CheckEndGame : MonoBehaviour {
     public TransmissionManager m_transmissionManager;
@@ -25,11 +26,19 @@ public class CheckEndGame : MonoBehaviour {
 
     bool TestEnding()
     {
-        foreach(TransmissionManager transmissionStatus in m_transmissionStatusList)
+        //var affected = (from transmissionStatus in m_transmissionStatusList
+        //                where transmissionStatus.m_disease < 1000 && transmissionStatus.m_disease >= transmissionStatus.m_knowledge
+        //                select transmissionStatus).ToList();
+
+        //return affected.Count > 5;
+        int i = 0;
+        foreach (TransmissionManager transmissionStatus in m_transmissionStatusList)
         {
             if (transmissionStatus.m_disease < 1000 && transmissionStatus.m_disease >= transmissionStatus.m_knowledge)
             {
-                return false;
+                i++;
+                if(i>5)
+                    return false;
             }
         }
         return true;
