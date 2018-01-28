@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class TransmissionManager : MonoBehaviour {
+public class TransmissionManager : MonoBehaviour
+{
 
     public bool isPlayer;
     [Range(0, 1001)]
@@ -23,7 +24,7 @@ public class TransmissionManager : MonoBehaviour {
 
     //Debug
     public TransmissionManager m_contact;
-    
+
 
     // Use this for initialization
 
@@ -32,26 +33,42 @@ public class TransmissionManager : MonoBehaviour {
         m_levelKnowledge = 1;
         m_levelDisease = 1;
         m_collider = gameObject.GetComponent<Collider>();
+        RandomizeValues();
         while (true)
         {
             yield return new WaitForSeconds(1f);
-            if(m_knowledge < m_disease)
+            if (m_knowledge < m_disease)
                 SpreadDisease();
         }
     }
 
+    [SerializeField]
+    private bool m_StartAsSick = false;
+    private void RandomizeValues()
+    {
+        if (m_StartAsSick) m_disease = Random.Range(5f, 40f); //0 to 1
+        m_diseaseReception = Random.Range(0.05f, 0.15f); //0 to 1
+        m_knowledgeReception = Random.Range(0.05f, 0.1f); //0 to 1
+        m_spreadRadius = Random.Range(1f, 3f); //0 to 5
+        m_spreadDangerosity = Random.Range(0.05f, 0.15f); //0 to 1
+    }
+
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         // Set Disease count calculated from previous frame
         if (m_bufferDisease > 0)
         {
-            m_disease += m_bufferDisease;
-            m_bufferDisease = 0;
-            if (m_disease >= 1000)
+            if (tag == "Citizen")
             {
-                m_disease = 1000f;
-                m_isDead.Invoke();
-                //TODO: die!
+                m_disease += m_bufferDisease;
+                m_bufferDisease = 0;
+                if (m_disease >= 1000)
+                {
+                    m_disease = 1000f;
+                    m_isDead.Invoke();
+                    //TODO: die!
+                }
             }
         }
 
@@ -61,13 +78,13 @@ public class TransmissionManager : MonoBehaviour {
         if (m_isCommunicating)
         {
             m_timeBuffer += Time.deltaTime;
-            if(m_timeBuffer > 1f)
+            if (m_timeBuffer > 1f)
             {
                 UpdateTransmission();
                 m_timeBuffer -= 1f;
             }
         }
-	}
+    }
 
     public void InitiateTransmission(GameObject _citizen)
     {
@@ -93,7 +110,7 @@ public class TransmissionManager : MonoBehaviour {
 
     void UpdateKnowledge()
     {
-        if(m_contact.m_levelKnowledge > m_levelKnowledge+1)
+        if (m_contact.m_levelKnowledge > m_levelKnowledge + 1)
             m_knowledge += (m_contact.m_knowledge * m_knowledgeReception);
         if (m_knowledge > 1001) m_knowledge = 1001f;
     }
@@ -109,9 +126,9 @@ public class TransmissionManager : MonoBehaviour {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, m_spreadRadius);
         foreach (Collider _collider in hitColliders)
         {
-            if(_collider != m_collider && _collider.gameObject.tag == "Citizen")
+            if (_collider != m_collider && _collider.gameObject.tag == "Citizen")
             {
-                TransmissionManager _spreded =  _collider.gameObject.GetComponent<TransmissionManager>();
+                TransmissionManager _spreded = _collider.gameObject.GetComponent<TransmissionManager>();
                 _spreded.m_disease += ((m_disease - m_knowledge) * _spreded.m_diseaseReception * m_spreadDangerosity);
                 if (_spreded.m_knowledge > 1001) _spreded.m_knowledge = 1001f;
             }
@@ -121,7 +138,7 @@ public class TransmissionManager : MonoBehaviour {
     void CheckLevel()
     {
         if (m_levelKnowledge < 10 && (int)m_knowledge > m_levelStep[m_levelKnowledge])
-            m_levelKnowledge++;        
+            m_levelKnowledge++;
         if (m_levelDisease < 10 && (int)m_disease > m_levelStep[m_levelDisease])
             m_levelDisease++;
     }

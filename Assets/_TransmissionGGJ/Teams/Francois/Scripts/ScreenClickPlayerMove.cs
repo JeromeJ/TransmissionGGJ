@@ -43,7 +43,7 @@ public class ScreenClickPlayerMove : MonoBehaviour
         }
         else if (m_followCitizen)
         {
-            Debug.Log(m_CitizenToFollow.transform.position);
+            //Debug.Log(m_CitizenToFollow.transform.position);
             m_AIcontroller.SetTarget(m_CitizenToFollow.position);
 
             if (!m_navMeshAgent.pathPending)
