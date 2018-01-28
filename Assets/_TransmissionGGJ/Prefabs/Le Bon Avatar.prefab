@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114503064639726438}
   - component: {fileID: 114944409652639614}
   - component: {fileID: 95403403495976676}
+  - component: {fileID: 114121780787572100}
   - component: {fileID: 136315993860631588}
   - component: {fileID: 54398004668234446}
   - component: {fileID: 114401046664262682}
@@ -83,6 +84,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114121780787572100
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1410246885385140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5968a0df55ecb14f9af9110d202300a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114156104296386292
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -222,12 +234,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlayer: 0
   m_knowledge: 120
-  m_disease: 328
-  m_diseaseReception: 0.1
+  m_disease: 146
+  m_diseaseReception: 0.75
   m_knowledgeReception: 0.1
   m_spreadRadius: 0
   m_spreadDangerosity: 0
   m_levelStep: 000000000f0000003200000064000000af000000130100009a0100003f02000007030000e8030000
+  m_isDead:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   m_contact: {fileID: 0}
   m_isCommunicating: 0
   m_levelKnowledge: 0
@@ -287,7 +304,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  m_state: 1
+  __state: 1
   m_conversationLength: 0
   m_remainingConversationTime: 0
 --- !u!114 &114944409652639614
