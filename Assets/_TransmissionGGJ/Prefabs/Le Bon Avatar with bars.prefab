@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 114557908425947092}
   - component: {fileID: 114492170692922504}
   - component: {fileID: 114970849812479030}
+  - component: {fileID: 114431835536486144}
   m_Layer: 0
   m_Name: CanvasNPC
   m_TagString: Untagged
@@ -404,6 +405,18 @@ MonoBehaviour:
   m_GroundCheckDistance: 0.6
   _canRun: 0
   _canJump: 0
+--- !u!114 &114431835536486144
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1115826313002112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 351c72948ae4e4a4f85d4d445deb2255, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Camera: {fileID: 0}
 --- !u!114 &114446442179141550
 MonoBehaviour:
   m_ObjectHideFlags: 1
