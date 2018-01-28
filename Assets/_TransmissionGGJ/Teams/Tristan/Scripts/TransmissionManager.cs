@@ -5,14 +5,18 @@ using UnityEngine;
 public class TransmissionManager : MonoBehaviour {
 
     public bool isPlayer;
-    [Range(0, 1000)]
+    [Range(0, 1001)]
     public float m_knowledge;
-    [Range(0, 1000)]
+    [Range(0, 1001)]
     public float m_disease;
     [Range(0f, 1f)]
     public float m_diseaseReception;
     [Range(0f, 1f)]
     public float m_knowledgeReception;
+    [Range(0f, 5f)]
+    public float m_spreadRadius;
+    [Range(0f, 1f)]
+    public float m_spreadDangerosity;
     public int[] m_levelStep = new int[10];
 
     //Debug
@@ -20,13 +24,22 @@ public class TransmissionManager : MonoBehaviour {
     
 
     // Use this for initialization
-    void Start () {
+
+    IEnumerator Start()
+    {
         m_levelKnowledge = 1;
         m_levelDisease = 1;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        m_collider = gameObject.GetComponent<Collider>();
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            if(m_knowledge < m_disease)
+                SpreadDisease();
+        }
+    }
+
+    // Update is called once per frame
+    void Update () {
         // Set Disease count calculated from previous frame
         if (m_bufferDisease > 0)
         {
@@ -76,7 +89,7 @@ public class TransmissionManager : MonoBehaviour {
     {
         if(m_contact.m_levelKnowledge > m_levelKnowledge+1)
             m_knowledge += (m_contact.m_knowledge * m_knowledgeReception);
-        if (m_knowledge > 1000) m_knowledge = 1000f;
+        if (m_knowledge > 1001) m_knowledge = 1001f;
     }
 
     void UpdateDisease()
@@ -85,11 +98,25 @@ public class TransmissionManager : MonoBehaviour {
             m_bufferDisease = ((m_contact.m_disease - m_contact.m_knowledge) * m_diseaseReception);
     }
 
+    void SpreadDisease()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, m_spreadRadius);
+        foreach (Collider _collider in hitColliders)
+        {
+            if(_collider != m_collider && _collider.gameObject.tag == "Citizen")
+            {
+                TransmissionManager _spreded =  _collider.gameObject.GetComponent<TransmissionManager>();
+                _spreded.m_disease += ((m_disease - m_knowledge) * _spreded.m_diseaseReception * m_spreadDangerosity);
+                if (_spreded.m_knowledge > 1001) _spreded.m_knowledge = 1001f;
+            }
+        }
+    }
+
     void CheckLevel()
     {
-        if ((int)m_knowledge > m_levelStep[m_levelKnowledge])
+        if (m_levelKnowledge < 10 && (int)m_knowledge > m_levelStep[m_levelKnowledge])
             m_levelKnowledge++;        
-        if ((int)m_disease > m_levelStep[m_levelDisease])
+        if (m_levelDisease < 10 && (int)m_disease > m_levelStep[m_levelDisease])
             m_levelDisease++;
     }
 
@@ -98,4 +125,5 @@ public class TransmissionManager : MonoBehaviour {
     [SerializeField] private bool m_isCommunicating;
     [SerializeField] private int m_levelKnowledge;
     [SerializeField] private int m_levelDisease;
+    private Collider m_collider;
 }
