@@ -34,7 +34,7 @@ public class CitizenManager : DualBehaviour
         //      -> Each citizen get triggered (also need to call them off after a while when ending the conversation)
         //      -> Needs to know who it's talking to
 
-        Debug.Log(this.name + " in range with " + _recipient.name, _recipient);
+        //Debug.Log(this.name + " in range with " + _recipient.name, _recipient);
 
         if (InitiateConversation(_recipient))
         {
