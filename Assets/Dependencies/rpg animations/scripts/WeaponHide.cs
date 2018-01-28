@@ -1,4 +1,4 @@
-﻿
+﻿#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
 using UnityEngine;
 using System.Collections;
 
@@ -38,3 +38,4 @@ public class WeaponHide : MonoBehaviour
     }
 }
 
+#pragma warning restore CS0108 // Member hides inherited member; missing new keyword

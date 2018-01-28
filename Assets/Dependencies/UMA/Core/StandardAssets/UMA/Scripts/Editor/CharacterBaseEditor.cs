@@ -1,3 +1,4 @@
+#pragma warning disable CS0618 // Type or member is obsolete
 #define UNITY_EDITOR
 #if UNITY_EDITOR
 
@@ -1657,8 +1658,8 @@ namespace UMA.Editors
 						changed = true;
 					}
 					break;
-				case ProceduralPropertyType.Vector4:
-					Vector4 newVector4 = EditorGUILayout.Vector4Field(description.label, property.vectorValue);
+                case ProceduralPropertyType.Vector4:
+                    Vector4 newVector4 = EditorGUILayout.Vector4Field(description.label, property.vectorValue);
 					if (newVector4 != property.vectorValue)
 					{
 						property.vectorValue = newVector4;
@@ -1828,3 +1829,4 @@ namespace UMA.Editors
 	}
 }
 #endif
+#pragma warning restore CS0618 // Type or member is obsolete 

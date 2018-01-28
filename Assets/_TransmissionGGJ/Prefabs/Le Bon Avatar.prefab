@@ -273,20 +273,7 @@ MonoBehaviour:
   m_transform: {fileID: 0}
   m_nextDestination: {fileID: 0}
   m_interactivityRange: 2.5
-  m_pointsOfInterest:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  m_pointsOfInterest: []
   m_state: 1
   m_conversationLength: 0
   m_remainingConversationTime: 0
