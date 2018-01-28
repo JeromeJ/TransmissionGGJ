@@ -8,6 +8,7 @@ public class CameraMove : MonoBehaviour {
     public Camera m_camera;
     public BoxCollider m_cameraHolderBoxCollider;
     public Rigidbody m_cameraHolderRigidbody;
+    public AudioHandler m_audioHandler;
 
     public float m_camerSpeed = 100f;
 
@@ -48,6 +49,12 @@ public class CameraMove : MonoBehaviour {
         }
         m_cameraHolderRigidbody.useGravity = false;
         m_cameraHolderRigidbody.constraints = (RigidbodyConstraints)116;//freeze y position and all rotations
+        if (!m_audioHandler)
+        {
+            m_audioHandler = gameObject.GetComponent<AudioHandler>();
+            float soundAjustment = 0.6f - ((m_camera.fieldOfView - 5) * 0.01f);
+            m_audioHandler.ChangeVolumeTo(soundAjustment);
+        }
     }
 
     void Update ()
@@ -86,6 +93,8 @@ public class CameraMove : MonoBehaviour {
         if((zoom > 0 && m_camera.fieldOfView > m_minZoom)|| (zoom < 0 && m_camera.fieldOfView < m_maxZoom))
         {
             m_camera.fieldOfView -= zoom;
+            float soundAjustment = 0.6f - ( (m_camera.fieldOfView - 5)*0.01f);
+            m_audioHandler.ChangeVolumeTo(soundAjustment);
             float xAdjustment = m_colliderXsizeVariationWithZoom * zoom;
             float zAdjustment = m_colliderZsizeVariationWithZoom * zoom;
             m_colliderSizeAjustment.Set(m_cameraHolderBoxCollider.size.x - xAdjustment,10, m_cameraHolderBoxCollider.size.z - zAdjustment);

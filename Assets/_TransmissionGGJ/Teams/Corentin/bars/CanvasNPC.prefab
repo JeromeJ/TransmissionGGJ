@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 114565471255472682}
   - component: {fileID: 114721143218374326}
   - component: {fileID: 114435634469502830}
+  - component: {fileID: 114804258422387106}
   m_Layer: 0
   m_Name: CanvasNPC
   m_TagString: Untagged
@@ -289,6 +290,18 @@ MonoBehaviour:
   m_FillAmount: 0.120000005
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114804258422387106
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1779750597850730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 351c72948ae4e4a4f85d4d445deb2255, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Camera: {fileID: 20413570815959716, guid: c0a88540b0b7ee345a8e33373e2a227d, type: 2}
 --- !u!114 &114886942174032108
 MonoBehaviour:
   m_ObjectHideFlags: 1
