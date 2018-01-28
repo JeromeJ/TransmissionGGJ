@@ -71,6 +71,7 @@ public class CitizenAgent : DualBehaviour
         base.Awake();
 
         m_navMeshAgent = GetComponent<NavMeshAgent>();
+        m_ThirdPersonController = gameObject.GetComponent<ThirdPersonCharacter>();
     }
 
     protected void Start()
@@ -136,11 +137,28 @@ public class CitizenAgent : DualBehaviour
                 MoveToDestination();
 
                 if (CheckIfArrived())
+                {
                     m_transform.LookAt(m_recipient.transform);
+
+                    if (m_ThirdPersonController != null)
+                    {
+                        if (m_initiator) m_ThirdPersonController.TalkingInteraction = true;
+                        else m_ThirdPersonController.ListeningInteraction = true;
+                    }
+                    else Debug.LogError("m_ThirdPersonController is null ! (can't start talking/listening interaction)");
+                }
 
                 if (ConversationIsOver())
                 {
                     m_IsDoneInteracting.Invoke(this);
+                    
+                    if (m_ThirdPersonController != null)
+                    {
+                        m_ThirdPersonController.TalkingInteraction = false;
+                        m_ThirdPersonController.ListeningInteraction = false;
+                    }
+                    else Debug.LogError("m_ThirdPersonController is null ! (can't stop talking/listening interactions)");
+
                     SwitchToState(E_States.STROLLING);
                 }
 
@@ -229,6 +247,7 @@ public class CitizenAgent : DualBehaviour
         m_recipient = _recipient;
         m_initiator = _initiator;
         m_conversationLength = _conversationLength;
+
         SwitchToState(E_States.INTERACTING);
     }
 
@@ -313,6 +332,7 @@ public class CitizenAgent : DualBehaviour
     #region Dynamic
 
     private NavMeshAgent m_navMeshAgent;
+    private ThirdPersonCharacter m_ThirdPersonController;
 
     private CitizenAgent m_recipient;
     private bool m_initiator;
