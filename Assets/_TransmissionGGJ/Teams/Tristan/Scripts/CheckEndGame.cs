@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class CheckEndGame : MonoBehaviour {
-
     public TransmissionManager m_transmissionManager;
     public Canvas m_gameOverCanvas;
     public Text m_deathCountText;

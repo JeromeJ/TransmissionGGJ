@@ -34,7 +34,13 @@ public class CitizenAgent : DualBehaviour
 
     [Header("Debug")]
 
-    public E_States m_state = E_States.STROLLING;
+    [SerializeField]
+    private E_States __state = E_States.STROLLING;
+    
+    public E_States m_state
+    {
+        get { return __state; }
+    }
 
     #endregion
 
@@ -251,7 +257,7 @@ public class CitizenAgent : DualBehaviour
         SwitchToState(E_States.INTERACTING);
     }
 
-    private void SwitchToState(E_States _state)
+    public void SwitchToState(E_States _state)
     {
         switch (_state)
         {
@@ -292,7 +298,7 @@ public class CitizenAgent : DualBehaviour
                 break;
         }
 
-        m_state = _state;
+        __state = _state;
     }
 
     private Transform GoTalkTo(CitizenAgent m_recipient)

@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_TransmissionGGJ/Teams/Neil/Scenes/MainMenuGameJam.unity
-    guid: 78d26d7285e187540b763d9e3713f45d
+    path: Assets/_TransmissionGGJ/Scenes/MainMenu.unity
+    guid: 9cf3d56db469e0d4c8a73580182f2d77
   - enabled: 1
-    path: Assets/_TransmissionGGJ/Teams/Corentin/Scenes/PlayScene.unity
-    guid: d9f59700ad39f694bb01d2f79cd7fca6
+    path: Assets/_TransmissionGGJ/Scenes/PlayScene.unity
+    guid: 3ff4933052542cd4cbece85194aafbc2

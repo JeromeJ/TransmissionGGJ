@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TransmissionManager : MonoBehaviour {
 
@@ -18,6 +19,7 @@ public class TransmissionManager : MonoBehaviour {
     [Range(0f, 1f)]
     public float m_spreadDangerosity;
     public int[] m_levelStep = new int[10];
+    public UnityEvent m_isDead;
 
     //Debug
     public TransmissionManager m_contact;
@@ -48,6 +50,7 @@ public class TransmissionManager : MonoBehaviour {
             if (m_disease >= 1000)
             {
                 m_disease = 1000f;
+                m_isDead.Invoke();
                 //TODO: die!
             }
         }
@@ -68,8 +71,11 @@ public class TransmissionManager : MonoBehaviour {
 
     public void InitiateTransmission(GameObject _citizen)
     {
-        m_isCommunicating = true;
-        m_contact = _citizen.GetComponent<TransmissionManager>();
+        if (m_disease < 1000)
+        {
+            m_isCommunicating = true;
+            m_contact = _citizen.GetComponent<TransmissionManager>();
+        }
     }
 
     void UpdateTransmission()

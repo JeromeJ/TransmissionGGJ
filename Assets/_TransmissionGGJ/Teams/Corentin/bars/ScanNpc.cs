@@ -17,6 +17,10 @@ public class ScanNpc : MonoBehaviour {
     void Awake ()
     {
        m_transmissionManager = gameObject.GetComponentInParent<TransmissionManager>();
+        if(m_transmissionManager == null)
+        {
+            Debug.Log(gameObject.GetComponentInParent<TransmissionManager>());
+        }
     }
 
     IEnumerator WaitAsecThenhideArrow (Image img)
