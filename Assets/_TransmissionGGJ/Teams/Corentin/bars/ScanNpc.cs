@@ -12,6 +12,8 @@ public class ScanNpc : MonoBehaviour {
     private float m_previousKnowledgeLvl;
     private float m_previousDiseaseLvl;
     private TransmissionManager m_transmissionManager;
+    private bool m_greenArrowCoroutineOngoing;
+    private bool m_redArrowCoroutineOngoing;
     void Awake ()
     {
        m_transmissionManager = gameObject.GetComponentInParent<TransmissionManager>();
@@ -19,6 +21,25 @@ public class ScanNpc : MonoBehaviour {
         {
             Debug.Log(gameObject.GetComponentInParent<TransmissionManager>());
         }
+    }
+
+    IEnumerator WaitAsecThenhideArrow (Image img)
+    {
+        if(img.name=="GreenArrow")
+        {
+            m_greenArrowCoroutineOngoing = true;
+            yield return new WaitForSeconds(1);
+            img.fillAmount = 0f;
+            m_greenArrowCoroutineOngoing = false;
+        }
+        else
+        {
+            m_redArrowCoroutineOngoing = true;
+            yield return new WaitForSeconds(1);
+            img.fillAmount = 0f;
+            m_redArrowCoroutineOngoing = false;
+        }
+        
     }
 
 	void Update ()
@@ -31,7 +52,11 @@ public class ScanNpc : MonoBehaviour {
         }
         else
         {
-            m_GreenArrow.fillAmount = 0f;
+            if (!m_greenArrowCoroutineOngoing)
+            {
+                StartCoroutine(WaitAsecThenhideArrow(m_GreenArrow));
+            }
+            
         }
         if (m_previousDiseaseLvl < m_transmissionManager.m_disease)
         {
@@ -41,7 +66,11 @@ public class ScanNpc : MonoBehaviour {
         }
         else
         {
-            m_RedArrow.fillAmount = 0f;
+            if (!m_redArrowCoroutineOngoing)
+            {
+                StartCoroutine(WaitAsecThenhideArrow(m_RedArrow));
+            }
+            
         }
         
         
