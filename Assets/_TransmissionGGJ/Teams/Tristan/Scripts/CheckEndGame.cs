@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CheckEndGame : MonoBehaviour {
 
-    public TransmissionManager m_transmissionManager;
-
 	// Use this for initialization
 	void Start () {
         m_citizenList = GameObject.FindGameObjectsWithTag("Citizen");
