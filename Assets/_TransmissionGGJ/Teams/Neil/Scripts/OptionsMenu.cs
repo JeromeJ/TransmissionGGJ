@@ -107,40 +107,40 @@ public class OptionsMenu : MonoBehaviour
             tooltipstext.GetComponent<Text>().text = "on";
         }
 
-        // check shadow distance/enabled
-        if (PlayerPrefs.GetInt("Shadows") == 0)
-        {
-            QualitySettings.shadowCascades = 0;
-            QualitySettings.shadowDistance = 0;
-            shadowofftext.GetComponent<Text>().text = "OFF";
-            shadowlowtext.GetComponent<Text>().text = "low";
-            shadowhightext.GetComponent<Text>().text = "high";
-            shadowofftextLINE.SetActive(true);
-            shadowlowtextLINE.SetActive(false);
-            shadowhightextLINE.SetActive(false);
-        }
-        else if (PlayerPrefs.GetInt("Shadows") == 1)
-        {
-            QualitySettings.shadowCascades = 2;
-            QualitySettings.shadowDistance = 75;
-            shadowofftext.GetComponent<Text>().text = "off";
-            shadowlowtext.GetComponent<Text>().text = "LOW";
-            shadowhightext.GetComponent<Text>().text = "high";
-            shadowofftextLINE.SetActive(false);
-            shadowlowtextLINE.SetActive(true);
-            shadowhightextLINE.SetActive(false);
-        }
-        else if (PlayerPrefs.GetInt("Shadows") == 2)
-        {
-            QualitySettings.shadowCascades = 4;
-            QualitySettings.shadowDistance = 500;
-            shadowofftext.GetComponent<Text>().text = "off";
-            shadowlowtext.GetComponent<Text>().text = "low";
-            shadowhightext.GetComponent<Text>().text = "HIGH";
-            shadowofftextLINE.SetActive(false);
-            shadowlowtextLINE.SetActive(false);
-            shadowhightextLINE.SetActive(true);
-        }
+        //// check shadow distance/enabled
+        //if (PlayerPrefs.GetInt("Shadows") == 0)
+        //{
+        //    QualitySettings.shadowCascades = 0;
+        //    QualitySettings.shadowDistance = 0;
+        //    shadowofftext.GetComponent<Text>().text = "OFF";
+        //    shadowlowtext.GetComponent<Text>().text = "low";
+        //    shadowhightext.GetComponent<Text>().text = "high";
+        //    shadowofftextLINE.SetActive(true);
+        //    shadowlowtextLINE.SetActive(false);
+        //    shadowhightextLINE.SetActive(false);
+        //}
+        //else if (PlayerPrefs.GetInt("Shadows") == 1)
+        //{
+        //    QualitySettings.shadowCascades = 2;
+        //    QualitySettings.shadowDistance = 75;
+        //    shadowofftext.GetComponent<Text>().text = "off";
+        //    shadowlowtext.GetComponent<Text>().text = "LOW";
+        //    shadowhightext.GetComponent<Text>().text = "high";
+        //    shadowofftextLINE.SetActive(false);
+        //    shadowlowtextLINE.SetActive(true);
+        //    shadowhightextLINE.SetActive(false);
+        //}
+        //else if (PlayerPrefs.GetInt("Shadows") == 2)
+        //{
+        //    QualitySettings.shadowCascades = 4;
+        //    QualitySettings.shadowDistance = 500;
+        //    shadowofftext.GetComponent<Text>().text = "off";
+        //    shadowlowtext.GetComponent<Text>().text = "low";
+        //    shadowhightext.GetComponent<Text>().text = "HIGH";
+        //    shadowofftextLINE.SetActive(false);
+        //    shadowlowtextLINE.SetActive(false);
+        //    shadowhightextLINE.SetActive(true);
+        //}
 
         // check vsync
         if (QualitySettings.vSyncCount == 0)
