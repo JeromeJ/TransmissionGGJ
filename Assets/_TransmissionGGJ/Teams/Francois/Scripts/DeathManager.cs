@@ -44,6 +44,13 @@ public class DeathManager : MonoBehaviour
         }
         else Debug.LogError("DeathManager : Can't find CitizenAgent component");
 
+        Collider _collider = gameObject.GetComponent<Collider>();
+        if(_collider != null) _collider.enabled = false;
+        else Debug.Log("DeathManager : Can't find Collider component");
+
+        Collider[] _colliders = gameObject.GetComponentsInChildren<Collider>();
+        if (_colliders != null) foreach (Collider c in _colliders) c.enabled = false;
+
         m_transmissionManager.m_isDead.RemoveListener(DeathApply);
         m_transmissionManager.enabled = false;
     }
