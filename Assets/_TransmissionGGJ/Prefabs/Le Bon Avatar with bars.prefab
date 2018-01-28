@@ -119,6 +119,7 @@ GameObject:
   - component: {fileID: 195536688771290724}
   - component: {fileID: 114701767624923072}
   - component: {fileID: 114335583478936514}
+  - component: {fileID: 114472656091687940}
   m_Layer: 8
   m_Name: Le Bon Avatar with bars
   m_TagString: Citizen
@@ -424,6 +425,17 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114472656091687940
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1410246885385140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5968a0df55ecb14f9af9110d202300a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114492170692922504
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -618,7 +630,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  m_state: 1
+  __state: 1
   m_conversationLength: 0
   m_remainingConversationTime: 0
 --- !u!114 &114904819596139896
