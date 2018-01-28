@@ -46,7 +46,7 @@ Transform:
   m_GameObject: {fileID: 1410246885385140}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.282, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -225,6 +225,8 @@ MonoBehaviour:
   m_disease: 328
   m_diseaseReception: 0.1
   m_knowledgeReception: 0.1
+  m_spreadRadius: 0
+  m_spreadDangerosity: 0
   m_levelStep: 000000000f0000003200000064000000af000000130100009a0100003f02000007030000e8030000
   m_contact: {fileID: 0}
   m_isCommunicating: 0
