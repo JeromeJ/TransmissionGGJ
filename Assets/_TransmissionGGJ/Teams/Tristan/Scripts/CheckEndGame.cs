@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CheckEndGame : MonoBehaviour {
-
+    public TransmissionManager m_transmissionManager;
+    public Canvas m_gameOverCanvas;
+    public Text m_deathCountText;
 	// Use this for initialization
 	void Start () {
         m_citizenList = GameObject.FindGameObjectsWithTag("Citizen");
@@ -31,17 +35,18 @@ public class CheckEndGame : MonoBehaviour {
         return true;
     }
 
-    void DisplayCasualties()
+    int DisplayCasualties()
     {
         int DeathCount = 0;
         foreach (TransmissionManager transmissionStatus in m_transmissionStatusList)
         {
-            if (transmissionStatus.m_disease == 1000)
+            if (transmissionStatus.m_disease >= 1000)
             {
                 DeathCount++;
             }
         }
         Debug.Log("Casualties: " + DeathCount);
+        return DeathCount;
     }
 
     IEnumerator LoopTestEnding()
@@ -53,7 +58,13 @@ public class CheckEndGame : MonoBehaviour {
             _isEnd = TestEnding();
         }
         Debug.Log("End Game");
-        DisplayCasualties();
+        int deathCount = DisplayCasualties();
+        m_gameOverCanvas.gameObject.SetActive(true);
+        m_deathCountText.text = "DeathCount : " + deathCount ;
+    }
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private GameObject[] m_citizenList;
